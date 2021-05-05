@@ -15,9 +15,8 @@ module Manyoapp
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-  end
-  
-  config.generators do |g|
+
+    config.generators do |g|
     g.test_framework :rspec,
       model_specs: true,
       view_specs: false,
@@ -25,5 +24,6 @@ module Manyoapp
       routing_specs: false,
       controller_specs: false,
       request_specs: false
+    end
   end
 end
