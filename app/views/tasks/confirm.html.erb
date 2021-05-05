@@ -1,2 +1,9 @@
-<h1>Tasks#confirm</h1>
-<p>Find me in app/views/tasks/confirm.html.erb</p>
+<h3>以下の内容で送信する。</h3>
+<%= form_with(model: @task, url: tasks_path, local: true) do |f| %>
+  <%= f.hidden_field :name %>
+  <%= f.hidden_field :detail %>
+  <p>名前:<%= @task.name %></p>
+  <p>詳細:<%= @task.detail %></p>
+  <%= f.submit "送信" %>
+  <%= f.submit "戻る", name: 'back' %>
+<% end %>
