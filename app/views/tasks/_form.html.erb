@@ -1,0 +1,22 @@
+<%= form_with(model: @task, local: true ,url: choose_new_or_edit) do |f| %>
+  <% if @task.errors.any? %>
+    <div id ="error_explanation">
+      <h2><%= @task.errors.count %>件のエラーあります。</h2>
+      <ul>
+        <% @task.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <div class="task_content">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="task_content">
+      <%= f.label :detail %>
+      <%= f.text_field :detail %>
+    </div>
+  <%= f.submit :"投稿する" %>
+<% end %>
+<%= link_to "一覧に戻る", tasks_path %>

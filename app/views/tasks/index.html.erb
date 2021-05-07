@@ -1,0 +1,18 @@
+<h1>万葉</h1>
+<%= link_to '投稿', new_task_path %>
+<p><%= notice %></p>
+<table>
+  <tr>
+    <th>名前</th>
+    <th>詳細</th>
+  </tr>
+<% @tasks.each do |task| %>
+  <tr>
+    <td><%= task.name %></td>
+    <td><%= task.detail %></td>
+    <td><%= link_to '確認', task_path(task.id) %></td>
+    <td><%= link_to '編集', edit_task_path(task.id), data: { confirm: '編集しますか？' } %></td>
+    <td><%= link_to '削除', task_path(task.id), method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
+  </tr>
+<% end %>
+</table>
