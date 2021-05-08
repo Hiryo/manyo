@@ -11,4 +11,9 @@ FactoryBot.define do
       name { 'Factoryで作ったデフォルトのネーム２' }
       detail { 'Factoryで作ったデフォルトのディティール２' }
     end
+
+    factory :third_task, class: Task do
+      name { 'Factoryで作ったデフォルトのネーム3' }
+      detail { 'Factoryで作ったデフォルトのディティール3' }
+    end
   end
