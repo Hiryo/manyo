@@ -29,7 +29,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     it '新しいタスクが一番上に表示される' do
       # binding.irb
       task_list = all('.task_row')
-      expect(task_list[0]).to have_content 'third_task'
+      expect(task_list[0]).to have_content 'task'
     end
   end
 end
