@@ -8,18 +8,22 @@
         <% end %>
       </ul>
     </div>
-  <% end %>
-    <div class="task_content">
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-    </div>
+
+  <div class="task_content">
+    <%= f.label :status %>
+    <%= f.select :status, Task.statuses.keys %>
+  </div>
+  <div class="task_content">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
     <div class="task_content">
       <%= f.label :detail %>
       <%= f.text_field :detail %>
     </div>
     <div class="task_content">
       <%= f.label :deadline %>
-      <%= f.datetime_field :expired_at %>
+      <%= f.date_field :expired_at %>
     </div>
   <%= f.submit :"投稿する" %>
 <% end %>
