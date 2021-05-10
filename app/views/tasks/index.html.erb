@@ -1,6 +1,12 @@
 <h1>万葉</h1>
+<%= form_with(local: true, url: tasks_path, method: :get) do |f| %>
+  <%= f.text_field :name %>
+  <%= f.submit :search %>
+<% end %>
+
 <%= link_to '投稿', new_task_path %>
 <p><%= notice %></p>
+
 <table>
   <tr>
     <th>ステータス</th>

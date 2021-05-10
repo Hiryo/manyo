@@ -32,6 +32,14 @@ RSpec.describe 'タスク管理機能', type: :system do
       expect(task_list[0]).to have_content 'task'
     end
   end
+
+  context '終了期限でソートされた場合' do
+    it '終了期限が遅いタスクが一番上に表示される' do
+      fill_in 'task[expired_at]', with: 'task'
+      task_list = all('.date_row')
+      click_button '終了期限でソートする'
+    end
+  end
 end
 
   describe '詳細表示機能' do

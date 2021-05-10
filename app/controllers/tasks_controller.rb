@@ -6,6 +6,11 @@ class TasksController < ApplicationController
     else
       @tasks = Task.all
     end
+    if params[:name].present?
+      @tasks = Task.where('name LIKE ?', "%#{params[:name]}%")
+    else
+      @tasks = Task.none
+    end
   end
 
   def new
