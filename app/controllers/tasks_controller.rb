@@ -11,6 +11,7 @@ class TasksController < ApplicationController
     else
       @tasks = Task.none
     end
+    @tasks = Task.where(status: params[:status])
   end
 
   def new
