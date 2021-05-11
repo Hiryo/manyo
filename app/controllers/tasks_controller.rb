@@ -6,12 +6,15 @@ class TasksController < ApplicationController
     else
       @tasks = Task.all
     end
-    if params[:name].present?
-      @tasks = Task.where('name LIKE ?', "%#{params[:name]}%")
+    if params[:name].present? && params[:status].present?
+      @tasks = Task.search_name_status(params[:name], params[:status])
+    elsif params[:name].present?
+      @tasks = Task.search_name(params[:name])
+    elsif params[:status].present?
+      @tasks = Task.search_status(params[:status])
     else
-      @tasks = Task.none
+      @tasks = Task.latest
     end
-    @tasks = Task.where(status: params[:status])
   end
 
   def new
