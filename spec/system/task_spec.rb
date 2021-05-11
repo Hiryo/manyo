@@ -1,8 +1,7 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  let!(:task) { FactoryBot.create(:task, detail: 'task') }
-  let!(:second_task) { FactoryBot.create(:second_task, detail: 'task2') }
-  let!(:third_task) { FactoryBot.create(:third_task, detail: 'task3') }
+  let!(:task) { FactoryBot.create(:task) }
+  let!(:second_task) { FactoryBot.create(:second_task) }
   before do
     visit tasks_path
   end
@@ -13,6 +12,7 @@ RSpec.describe 'タスク管理機能', type: :system do
 				visit new_task_path
 				fill_in 'task[name]', with: 'task'
 				click_button '投稿する'
+        expect(page).to have_content 'task'
       end
     end
   end
@@ -35,9 +35,11 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   context '終了期限でソートされた場合' do
     it '終了期限が遅いタスクが一番上に表示される' do
-      fill_in 'task[expired_at]', with: 'task'
-      task_list = all('.date_row')
-      click_button '終了期限でソートする'
+      click_on "終了期限でソートする"
+      task_list = all('.task_row')
+      sleep 1.0
+      expect(task_list[0]).to have_content 'task'
+      expect(task_list[1]).to have_content 'hoge'
     end
   end
 end
