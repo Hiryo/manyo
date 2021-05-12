@@ -15,6 +15,11 @@ class TasksController < ApplicationController
     else
       @tasks = Task.latest
     end
+    if params[:priority]
+      @tasks = Task.latest
+    else
+      @tasks = Task.all
+    end
   end
 
   def new
@@ -60,7 +65,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:name, :detail, :expired_at, :status)
+    params.require(:task).permit(:name, :detail, :expired_at, :status, :priority)
   end
 
   def set_task

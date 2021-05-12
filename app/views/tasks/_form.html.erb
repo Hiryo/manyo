@@ -14,6 +14,10 @@
     <%= f.select :status, Task.statuses.keys %>
   </div>
   <div class="task_content">
+    <%= f.label :priority %>
+    <%= f.select :priority, Task.priorities.keys %>
+  </div>
+  <div class="task_content">
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
