@@ -6,22 +6,23 @@ require 'rails_helper'
       let!(:second_task) { FactoryBot.create(:second_task) }
       context 'scopeメソッドでタイトルのあいまい検索をした場合' do
       it '検索キーワードを含むタスクが絞り込まれる' do
-        expect(Task.search_name("task")[0].name).to include(task.name)
-        # expect(task.search('task')).not_to include(second_task)
-        # expect(task.search('task').count).to eq 1
+        expect(Task.search_name('task')).to include(task)
+        expect(Task.search_name('task')).not_to include(second_task)
+        expect(Task.search_name('task').count).to eq 1
       end
     end
     context 'scopeメソッドでステータス検索をした場合' do
       it "ステータスに完全一致するタスクが絞り込まれる" do
-        # expect(task.search('task')).to include(task)
-        # expect(task.search_status('task')).to include(second_tasktask)
-        # expect(task.search('task').count).to eq 1
+        expect(Task.search_status("完了")).to include(second_task)
+        expect(Task.search_status("完了")).not_to include(task)
+        expect(Task.search_status("完了").count).to eq 1
       end
     end
     context 'scopeメソッドでタイトルのあいまい検索とステータス検索をした場合' do
       it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
-        # expect(task.search('task')).to include(task) && (task.search('task')).to include(task)
-        # expect(task.search('task').count).to eq 1
+        expect(Task.search_name('task')).to include(task)
+        expect(Task.search_status("完了")).to include(second_task)
+        expect(Task.search_name_status('task', '完了').count).to eq 1
       end
     end
   end

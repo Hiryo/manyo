@@ -2,12 +2,14 @@
 <%= form_with(local: true, url: tasks_path, method: :get) do |f| %>
   <%= f.text_field :name %>
   <%= f.select :status, Task.statuses.keys %>
+  <%= f.select :priority, Task.priorities.keys %>
   <%= f.submit :search %>
 
 <% end %>
 
 <%= link_to '投稿', new_task_path %>
 <%= link_to "終了期限でソートする", tasks_path(expired_at: "true") %>
+<%= link_to "優先度が高い順にソートする", tasks_path(priority: "true") %>
 
 <p><%= notice %></p>
 
@@ -22,7 +24,7 @@
 <% @tasks.each do |task| %>
   <tr class="task_row">
     <td><%= task.status %></td>
-    <td><%= task.priority %></td>
+    <td><%#= task.priority %></td>
     <td><%= task.name %></td>
     <td><%= task.detail %></td>
     <td><%= task.expired_at %></td>

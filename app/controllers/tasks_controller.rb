@@ -1,25 +1,25 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    if params[:expired_at]
+    if params[expired_at: :Desc]
       @tasks = Task.latest
     else
       @tasks = Task.all
     end
-    if params[:name].present? && params[:status].present?
+    if params[:name] && params[:status]
       @tasks = Task.search_name_status(params[:name], params[:status])
-    elsif params[:name].present?
+    elsif params[:name] && params[:name] !=0
       @tasks = Task.search_name(params[:name])
-    elsif params[:status].present?
+    elsif params[:status] && params[:status] !=0
       @tasks = Task.search_status(params[:status])
     else
-      @tasks = Task.latest
-    end
-    if params[:priority]
-      @tasks = Task.latest
-    else
       @tasks = Task.all
     end
+    # if params[:priority]
+    #   @tasks = Task.latest
+    # else
+    #   @tasks = Task.all
+    # end
   end
 
   def new
