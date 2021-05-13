@@ -2,7 +2,6 @@
 <%= form_with(local: true, url: tasks_path, method: :get) do |f| %>
   <%= f.text_field :name %>
   <%= f.select :status, Task.statuses.keys %>
-  <%= f.select :priority, Task.priorities.keys %>
   <%= f.submit :search %>
 
 <% end %>
@@ -21,17 +20,17 @@
     <th>詳細</th>
     <th>終了期限</th>
   </tr>
-<% @tasks.each do |task| %>
-  <tr class="task_row">
-    <td><%= task.status %></td>
-    <td><%#= task.priority %></td>
-    <td><%= task.name %></td>
-    <td><%= task.detail %></td>
-    <td><%= task.expired_at %></td>
-    <td><%= link_to '確認', task_path(task.id) %></td>
-    <td><%= link_to '編集', edit_task_path(task.id), data: { confirm: '編集しますか？' } %></td>
-    <td><%= link_to '削除', task_path(task.id), method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
-  </tr>
-<% end %>
+  <% @tasks.each do |task| %>
+    <tr class="task_row">
+      <td><%= task.status %></td>
+      <td><%= task.priority %></td>
+      <td><%= task.name %></td>
+      <td><%= task.detail %></td>
+      <td><%= task.expired_at %></td>
+      <td><%= link_to '確認', task_path(task.id) %></td>
+      <td><%= link_to '編集', edit_task_path(task.id), data: { confirm: '編集しますか？' } %></td>
+      <td><%= link_to '削除', task_path(task.id), method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
+    </tr>
+  <% end %>
 </table>
 
