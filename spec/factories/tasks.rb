@@ -6,6 +6,7 @@ FactoryBot.define do
       detail { 'aaa' }
       expired_at { "2021-05-12 15:00:00" }
       status { '着手中' }
+      priority { '高' }
     end
     # 作成するテストデータの名前を「second_task」とします
     # （存在しないクラス名の名前をつける場合、オプションで「このクラスのテストデータにしてください」と指定します）
@@ -14,5 +15,6 @@ FactoryBot.define do
       detail { 'bbb' }
       expired_at { "2021-05-11 15:00:00" }
       status { '完了' }
+      priority { '低' }
     end
   end
