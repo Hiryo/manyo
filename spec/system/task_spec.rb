@@ -38,7 +38,6 @@ RSpec.describe 'タスク管理機能', type: :system do
       task_list = all('.task_row')
       expect(task_list[0]).to have_content "task"
       expect(task_list[1]).to have_content "hoge"
-      sleep 1.0
     end
   end
 

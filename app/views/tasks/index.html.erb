@@ -1,4 +1,4 @@
-<h1>万葉</h1>
+<header><h1>万葉</h1></header>
 <%= form_with(local: true, url: tasks_path, method: :get) do |f| %>
   <%= f.text_field :name %>
   <%= f.select :status, Task.statuses.keys %>
