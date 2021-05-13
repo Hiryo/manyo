@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  PER = 8
 
   def index
     if params[:name].present? && params[:status].present?
@@ -15,6 +16,8 @@ class TasksController < ApplicationController
     else
       @tasks = Task.all
     end
+
+    @tasks = @tasks.page(params[:page]).per(2)
   end
 
   def new

@@ -11,7 +11,6 @@
 <%= link_to "優先度が高い順にソートする", tasks_path(priority: "true") %>
 
 <p><%= notice %></p>
-
 <table>
   <tr>
     <th>ステータス</th>
@@ -33,4 +32,4 @@
     </tr>
   <% end %>
 </table>
-
+<%= paginate @tasks %>
