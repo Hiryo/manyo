@@ -1,0 +1,3 @@
+datetime:
+    formats:
+      default: "%Y/%m/%d"

@@ -1,4 +1,7 @@
-<h1>万葉</h1>
+<header><h1>万葉</h1></header>
+<p>ステータス: <%= @task.status %></p>
+<p>優先順位: <%= @task.priority %></p>
 <p>名前: <%= @task.name %></p>
 <p>詳細: <%= @task.detail %></p>
+<p>終了期限: <%= @task.expired_at %></p>
 <%= link_to "一覧に戻る", tasks_path %>

@@ -1,19 +1,35 @@
-<h1>万葉</h1>
+<header><h1>万葉</h1></header>
+<%= form_with(local: true, url: tasks_path, method: :get) do |f| %>
+  <%= f.text_field :name %>
+  <%= f.select :status, Task.statuses.keys %>
+  <%= f.submit :search %>
+
+<% end %>
+
 <%= link_to '投稿', new_task_path %>
+<%= link_to "終了期限でソートする", tasks_path(expired_at: "true") %>
+<%= link_to "優先度が高い順にソートする", tasks_path(priority: "true") %>
+
 <p><%= notice %></p>
 <table>
   <tr>
+    <th>ステータス</th>
+    <th>優先順位</th>
     <th>名前</th>
     <th>詳細</th>
+    <th>終了期限</th>
   </tr>
-<% @tasks.each do |task| %>
-  <tr class="task_row">
-    <td><%= task.time %></td>
-    <td><%= task.name %></td>
-    <td><%= task.detail %></td>
-    <td><%= link_to '確認', task_path(task.id) %></td>
-    <td><%= link_to '編集', edit_task_path(task.id), data: { confirm: '編集しますか？' } %></td>
-    <td><%= link_to '削除', task_path(task.id), method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
-  </tr>
-<% end %>
+  <% @tasks.each do |task| %>
+    <tr class="task_row">
+      <td><%= task.status %></td>
+      <td><%= task.priority %></td>
+      <td><%= task.name %></td>
+      <td><%= task.detail %></td>
+      <td><%= task.expired_at %></td>
+      <td><%= link_to '確認', task_path(task.id) %></td>
+      <td><%= link_to '編集', edit_task_path(task.id), data: { confirm: '編集しますか？' } %></td>
+      <td><%= link_to '削除', task_path(task.id), method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
+    </tr>
+  <% end %>
 </table>
+<%= paginate @tasks %>

@@ -1,18 +1,17 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  let!(:task) { FactoryBot.create(:task, detail: 'task') }
-  let!(:second_task) { FactoryBot.create(:second_task, detail: 'task2') }
-  let!(:third_task) { FactoryBot.create(:third_task, detail: 'task3') }
+  let!(:task) { FactoryBot.create(:task) }
+  let!(:second_task) { FactoryBot.create(:second_task) }
   before do
     visit tasks_path
   end
 
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
-      it '作成したタスクが表示される' do
+      it 'ステータスも登録される' do
 				visit new_task_path
-				fill_in 'task[name]', with: 'task'
-				click_button '投稿する'
+        select '未着手', from: 'task[status]'
+        expect(page).to have_content '未着手'
       end
     end
   end
@@ -30,6 +29,47 @@ RSpec.describe 'タスク管理機能', type: :system do
       # binding.irb
       task_list = all('.task_row')
       expect(task_list[0]).to have_content 'task'
+    end
+  end
+
+  context '終了期限でソートされた場合' do
+    it '終了期限が遅いタスクが一番上に表示される' do
+      click_on "終了期限でソートする"
+      task_list = all('.task_row')
+      expect(task_list[0]).to have_content "task"
+      expect(task_list[1]).to have_content "hoge"
+    end
+  end
+
+  context '優先順位でソートされた場合' do
+    it '優先度の高い順に表示される' do
+      click_on "優先度が高い順にソートする"
+      task_list = all('.task_row')
+      expect(task_list[0]).to have_content "高"
+      expect(task_list[1]).to have_content "低"
+    end
+  end
+
+  context '検索をした場合' do
+    it 'タイトルで検索できる' do
+      fill_in "name", with: "hoge"
+      expect(page).to have_content 'hoge'
+      click_button "search"
+    end
+  end
+  context '検索をした場合' do
+    it 'ステータスで検索できる' do
+      select '未着手', from: 'status'
+      expect(page).to have_content '未着手'
+    end
+  end
+  context '検索をした場合' do
+    it 'タイトルとステータスで検索できる' do
+      fill_in "name", with: "hoge"
+      select '未着手', from: 'status'
+      expect(page).to have_content 'hoge'
+      expect(page).to have_content '未着手'
+      click_button "search"
     end
   end
 end
