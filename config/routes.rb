@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'tasks#index'
+  root 'users#new'
+  resources :users, only: [:new, :create, :destroy]
   resources :tasks do
     collection do
       get :search
