@@ -14,7 +14,7 @@ class TasksController < ApplicationController
     elsif params[:priority]
       @tasks = Task.order(:priority)
     else
-      @tasks = current_user.tasks.all
+      @tasks = current_user.tasks.all.includes(:user)
     end
 
     @tasks = @tasks.page(params[:page]).per(2)
@@ -38,8 +38,6 @@ class TasksController < ApplicationController
   end
 
   def show
-    # @task = current_user.tasks.find_by(task_id: @task.id)
-
   end
 
   def edit
