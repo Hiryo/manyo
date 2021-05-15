@@ -1,0 +1,5 @@
+<header><h1>ユーザー詳細</h1></header>
+<p>id: <%= @user.id %></p>
+<p>作成者: <%= @user.name %></p>
+<p>タスク数: <%= @user.tasks.length %></p>
+<%= link_to "ユーザー一覧に戻る", admin_users_path %>
