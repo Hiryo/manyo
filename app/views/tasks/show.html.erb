@@ -1,7 +1,13 @@
 <header><h1>万葉</h1></header>
+<p>作成者: <%= @task.user.name %></p>
 <p>ステータス: <%= @task.status %></p>
 <p>優先順位: <%= @task.priority %></p>
 <p>名前: <%= @task.name %></p>
 <p>詳細: <%= @task.detail %></p>
 <p>終了期限: <%= @task.expired_at %></p>
+
+<% if @task.user_id == current_user.id %>
+  <%= link_to '編集', edit_task_path(@task) %>
+  <%= link_to '削除', task_path(@task), method: :delete ,data: { confirm: 'Delete？' } %>
+<% end %>
 <%= link_to "一覧に戻る", tasks_path %>
