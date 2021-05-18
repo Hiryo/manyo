@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   before_validation { email.downcase! }
   has_secure_password
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
 
   enum admin: { 一般: false, 管理者: true }
   before_destroy :last_one_admin

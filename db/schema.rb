@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2021_05_15_114448) do
   enable_extension "plpgsql"
 
   create_table "tasks", force: :cascade do |t|
-    t.string "name"
+    t.string "title"
     t.string "detail"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2021_05_15_114448) do
     t.datetime "expired_at"
     t.integer "priority", default: 0
     t.bigint "user_id"
-    t.index ["name"], name: "index_tasks_on_name"
+    t.index ["title"], name: "index_tasks_on_title"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 

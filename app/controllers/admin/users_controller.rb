@@ -35,8 +35,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-    redirect_to admin_users_path, notice:"削除しました！"
+    User.find(params[:id]).destroy
+    flash[:notice] = "削除しました"
+      redirect_to admin_users_path
   end
 
   private
@@ -45,7 +46,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def admin_user
-    redirect_to(root_path) unless current_user.admin?
+    redirect_to root_path unless current_user.admin == "管理者"
     flash[:notice] = "管理者画面です"
   end
 
