@@ -1,9 +1,12 @@
 class Task < ApplicationRecord
-	validates :name, presence: true
+	validates :title, presence: true
 	validates :detail, presence: true
-	scope :search_name_status, -> (name, status) { where("name LIKE ?", "%#{name}%") && where(status: status)}
-	scope :search_status, -> (status) { where(status: status) }
-	scope :search_name, -> (name) { where("name LIKE ?", "%#{name}%") }
-	enum status:{ 選択してください: 0, 未着手: 1, 着手中: 2, 完了: 3 }
-	enum priority:{ 優先順位: 0, 高: 1, 中: 2, 低: 3 }
+
+	belongs_to :user
+
+	scope :search_title_status, -> (title, status, user_id) { where(user_id: user_id).where("title LIKE ?", "%#{title}%").where(status: status) }
+	scope :search_status, -> (status, user_id) { where(status: status).where(user_id: user_id) }
+	scope :search_title, -> (title, user_id) { where(user_id: user_id).where("title LIKE ?", "%#{title}%") }
+	enum status: { 未着手: 0, 着手中: 1, 完了: 2 }
+	enum priority: { 高: 0, 中: 1, 低: 2 }
 end

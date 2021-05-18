@@ -3,21 +3,20 @@ class TasksController < ApplicationController
   PER = 8
 
   def index
-    if params[:name].present? && params[:status].present?
-      @tasks = Task.search_name_status(params[:name], params[:status])
-    elsif params[:name].present? && params[:name].present? !=0
-      @tasks = Task.search_name(params[:name])
-    elsif params[:status].present? && params[:status].present? !=0
-      @tasks = Task.search_status(params[:status])
+    if params[:title].present? && params[:status].present?
+      @tasks = Task.search_title_status(params[:title], params[:status], current_user.id)
+    elsif params[:title].present? && params[:title].present? != 0
+      @tasks = Task.search_title(params[:title], current_user.id)
+    elsif params[:status].present? && params[:status].present? != 0
+      @tasks = Task.search_status(params[:status], current_user.id)
     elsif  params[:expired_at]
-      @tasks = Task.order(expired_at: :DESC)
+      @tasks = current_user.tasks.order(expired_at: :DESC)
     elsif params[:priority]
-      @tasks = Task.order(:priority)
+      @tasks = current_user.tasks.order(:priority)
     else
-      @tasks = Task.all
+      @tasks = current_user.tasks.all.includes(:user)
     end
-
-    @tasks = @tasks.page(params[:page]).per(2)
+    @tasks = @tasks.page(params[:page]).per(10)
   end
 
   def new
@@ -25,7 +24,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if params[:back]
       render :new
     else
@@ -52,7 +51,7 @@ class TasksController < ApplicationController
   end
 
   def confirm
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     render :new if @task.invalid?
   end
 
@@ -63,7 +62,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:name, :detail, :expired_at, :status, :priority)
+    params.require(:task).permit(:title, :detail, :expired_at, :status, :priority, :user_id)
   end
 
   def set_task

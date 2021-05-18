@@ -13,7 +13,6 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
-
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
@@ -38,3 +37,4 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'kaminari', '~> 0.17.0'
+gem 'bcrypt'
