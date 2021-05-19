@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  PER = 8
+  PER = 10
 
   def index
     if params[:title].present? && params[:status].present?
@@ -9,6 +9,14 @@ class TasksController < ApplicationController
       @tasks = Task.search_title(params[:title], current_user.id)
     elsif params[:status].present? && params[:status].present? != 0
       @tasks = Task.search_status(params[:status], current_user.id)
+
+
+    # elsif params[:status].present? && params[:labels].present?
+    #   @tasks = Task.search_label_status(params[:status], params[:labels], current_user.id)
+    # elsif params[:title].present? && params[:labels].present?
+    #   @tasks = Task.search_label_title(params[:title], params[:labels], current_user.id)
+    # elsif params[:labels]
+
     elsif  params[:expired_at]
       @tasks = current_user.tasks.order(expired_at: :DESC)
     elsif params[:priority]
@@ -16,7 +24,10 @@ class TasksController < ApplicationController
     else
       @tasks = current_user.tasks.all.includes(:user)
     end
-    @tasks = @tasks.page(params[:page]).per(10)
+    if params[:label_id].present?
+      @tasks = current_user.tasks.search_label(params[:label_id] )
+    end
+      @tasks = @tasks.page(params[:page]).per(10)
   end
 
   def new
@@ -50,10 +61,10 @@ class TasksController < ApplicationController
     end
   end
 
-  def confirm
-    @task = current_user.tasks.build(task_params)
-    render :new if @task.invalid?
-  end
+  # def confirm
+  #   @task = current_user.tasks.build(task_params)
+  #   render :new if @task.invalid?
+  # end
 
   def destroy
     @task.destroy
@@ -62,11 +73,10 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :detail, :expired_at, :status, :priority, :user_id)
+    params.require(:task).permit(:title, :detail, :expired_at, :status, :priority, :user_id, {label_ids: [] } )
   end
 
   def set_task
     @task = Task.find(params[:id])
   end
 end
-
