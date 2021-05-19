@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.5'
+# ruby '2.6.5'
 
 gem 'rails', '~> 5.2.5'
 gem 'pg', '>= 0.18', '< 2.0'
@@ -38,3 +38,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'kaminari', '~> 0.17.0'
 gem 'bcrypt'
+gem 'faker'
