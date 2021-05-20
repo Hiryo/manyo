@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :tasks do
     collection do
       get :search
-      post :confirm
+      # post :confirm
     end
   end
   namespace :admin do

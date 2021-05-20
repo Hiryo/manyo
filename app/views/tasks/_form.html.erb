@@ -1,4 +1,4 @@
-<%= form_with(model: @task, local: true ,url: choose_new_or_edit) do |f| %>
+<%= form_with(model: @task, local: true ) do |f| %>
   <% if @task.errors.any? %>
     <div id ="error_explanation">
       <h2><%= @task.errors.count %>件のエラーあります。</h2>
@@ -9,6 +9,9 @@
       </ul>
     </div>
   <% end %>
+  <div class="task_content">
+    <%= f.label :label %>
+    <%= f.collection_check_boxes(:label_ids, Label.all, :id, :name) %>
   <div class="task_content">
     <%= f.label :status %>
     <%= f.select :status, Task.statuses.keys %>
@@ -29,6 +32,8 @@
       <%= f.label :deadline %>
       <%= f.date_field :expired_at %>
     </div>
-  <%= f.submit :"投稿する" %>
-<% end %>
+    <%= f.submit :"投稿する" %>
+    <% end %>
+    <br>
+
 <%= link_to "一覧に戻る", tasks_path %>
